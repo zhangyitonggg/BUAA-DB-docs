@@ -337,19 +337,20 @@
 | tags                |                  [string]                  |   tag 的**名称**集合   |                未支付也可以看                |
 | title               |                   string                   |           -            |                未支付也可以看                |
 | content             |                   string                   |           -            |         未支付应该返回 null 或者空值         |
+| bhpan_url | string | bhpan的地址 |-|
 | paid                |                    bool                    |       是否支付过       |         支付过返回 true，否则 false          |
 | created_at          |                  datetime                  |           -            |                      -                       |
 | favorites           |                    int                     |        收藏个数        |                      -                       |
 | likes               |                    int                     |        点赞个数        |                      -                       |
 | dislikes            |                    int                     |        点踩个数        |                      -                       |
-| sponsors            |                    int                     |     投币的用户个数     | 对于付费的帖子，这里还应该计算付费用户的个数 |
-| coins               |                    int                     |       收到的菜币       |                     同上                     |
+| ~~sponsors~~        |                    int                     |     投币的用户个数     | 对于付费的帖子，这里还应该计算付费用户的个数 |
+| ~~coins~~           |                    int                     |       收到的菜币       |                     同上                     |
 | created_by          | {:user_id, :username, :url, :fans, :posts} |       创建者信息       |                      -                       |
 | created_by:user_id  |                    uuid                    |           -            |                      -                       |
 | created_by:username |                   string                   |           -            |                      -                       |
-| created_by:url      |                   string                   | 用户个人主页所在的地址 |                      -                       |
-| created_by:fans     |                    int                     |     用户的粉丝数量     |                      -                       |
-| created_by:posts    |                    int                     |     发布的帖子数量     |                      -                       |
+| ~~created_by:url~~  |                   string                   | 用户个人主页所在的地址 |                      -                       |
+| ~~created_by:fans~~ |                    int                     |     用户的粉丝数量     |                      -                       |
+| ~~created_by:posts~~ |                    int                     |     发布的帖子数量     |                      -                       |
 | like                |                    bool                    |        是否点赞        |                      -                       |
 | dislike             |                    bool                    |        是否点踩        |                      -                       |
 | favorite            |                    bool                    |        是否收藏        |                      -                       |
