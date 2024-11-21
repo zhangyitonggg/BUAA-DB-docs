@@ -307,6 +307,7 @@
 |  tags   | [string] | &#10004; | tag 的**名称**集合 |    默认为空    |
 |  title  |  string  |    -     |         -          |       -        |
 | content |  string  |    -     |         -          |       -        |
+| bhpan_url | string | - | - | - |
 
 - 成功响应
 
