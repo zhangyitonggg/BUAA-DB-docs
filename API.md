@@ -376,26 +376,26 @@
 - 请求体 无
 - 成功响应
 
-| 字段名                               |                                               类型                                                |          解释          |                                                    备注                                                     |
-| :----------------------------------- | :-----------------------------------------------------------------------------------------------: | :--------------------: | :---------------------------------------------------------------------------------------------------------: |
-| page                                 |                                                int                                                |           -            |                                               未支付返回 null                                               |
-| per_page                             |                                                int                                                |           -            |                                               未支付返回 null                                               |
-| total                                |                                                int                                                |           -            |                                               未支付返回 null                                               |
-| total_page                           |                                                int                                                |           -            |                                               未支付返回 null                                               |
-| comments                             |                                            [:comment]                                             |           -            |                                               未支付返回 null                                               |
-| comments:comment                     | {:comment_id, :content, :created_by, :created_at, :likes, :dislikes, :parent_id, :like, :dislike} |           -            |                                                      -                                                      |
-| comments:comment:comment_id          |                                               uuid                                                |           -            |                                                      -                                                      |
-| comments:comment:content             |                                              string                                               |           -            |                                                      -                                                      |
-| comments:comment:created_at          |                                             datetime                                              |           -            |                                                      -                                                      |
-| comments:comment:likes               |                                                int                                                |           -            |                                                      -                                                      |
-| comments:comment:dislikes            |                                                int                                                |           -            |                                                      -                                                      |
-| comments:comment:parent_id           |                                               uuid                                                |   评论的父级评论 id    | 如果评论是直接对帖子的回复，那么这个字段是 0；如果评论是对某个评论的回复，那么这个字段是被回复的评论的 uuid |
-| comments:comment:created_by          |                                    {:user_id, :username, :url}                                    |      评论的创建者      |                                                      -                                                      |
-| comments:comment:created_by:user_id  |                                               uuid                                                |           -            |                                                      -                                                      |
-| comments:comment:created_by:username |                                              string                                               |           -            |                                                      -                                                      |
-| comments:comment:created_by:url      |                                              string                                               | 用户个人主页所在的地址 |                                                      -                                                      |
-| comments:comment:like                |                                               bool                                                |        是否点赞        |                                                      -                                                      |
-| comments:comment:dislike             |                                               bool                                                |        是否点踩        |                                                      -                                                      |
+| 字段名                               |                             类型                             |          解释          |                             备注                             |
+| :----------------------------------- | :----------------------------------------------------------: | :--------------------: | :----------------------------------------------------------: |
+| page                                 |                             int                              |           -            |                       未支付返回 null                        |
+| per_page                             |                             int                              |           -            |                       未支付返回 null                        |
+| total                                |                             int                              |           -            |                       未支付返回 null                        |
+| total_page                           |                             int                              |           -            |                       未支付返回 null                        |
+| comments                             |                          [:comment]                          |           -            |                       未支付返回 null                        |
+| comments:comment                     | {:comment_id, :content, :created_by, :created_at, :likes, :dislikes, :parent_id, :like, :dislike} |           -            |                              -                               |
+| comments:comment:comment_id          |                             uuid                             |           -            |                              -                               |
+| comments:comment:content             |                            string                            |           -            |                              -                               |
+| comments:comment:created_at          |                           datetime                           |           -            |                              -                               |
+| ~~comments:comment:likes~~           |                             int                              |           -            |                              -                               |
+| ~~comments:comment:dislikes~~        |                             int                              |           -            |                              -                               |
+| comments:comment:parent_id           |                             uuid                             |   评论的父级评论 id    | 如果评论是直接对帖子的回复，那么这个字段是 0；如果评论是对某个评论的回复，那么这个字段是被回复的评论的 uuid |
+| comments:comment:created_by          |                 {:user_id, :username, :url}                  |      评论的创建者      |                              -                               |
+| comments:comment:created_by:user_id  |                             uuid                             |           -            |                              -                               |
+| comments:comment:created_by:username |                            string                            |           -            |                              -                               |
+| comments:comment:created_by:url      |                            string                            | 用户个人主页所在的地址 |                              -                               |
+| comments:comment:like                |                             bool                             |        是否点赞        |                              -                               |
+| comments:comment:dislike             |                             bool                             |        是否点踩        |                              -                               |
 
 ### 创建回复
 
@@ -895,11 +895,13 @@
 
 ## 补充
 
-之前的api文档缺少一些必须的api，都统一写在了此处。
+之前的api文档缺少一些必须的api，为了方便起见都统一写在了此处。
+
+如果觉得路径不合理可以去改。
 
 ### 查询是否关注某人
 
-* 路径 /queryFollow
+* 路径 /query_follow
 
 - 方法 GET
 - 路径参数 无
@@ -931,7 +933,7 @@
 
 ### 取消关注某人
 
-- 路径 unfollow
+- 路径 not_follow
 - 方法 POST
 - 路径参数
 
@@ -941,6 +943,32 @@
 
 - 查询参数 无
 - 请求体 无
+- 成功响应 无
+
+### 发布帖子的评论
+
+wxf写的什么勾八，啥都缺
+
+给一个分享贴评论，这里先不实现多级评论了
+
+- 路径 /comment
+
+- 方法 POST
+
+- 路径参数 
+
+  | 字段名  | 类型 | 解释 | 备注 |
+  | :-----: | :--: | :--: | :--: |
+  | post_id | uuid |  -   |  -   |
+
+- 查询参数 无
+
+- 请求体 表单数据
+
+    |  字段名   |  类型  |   可选   | 解释 |    备注    |
+    | :-------: | :----: | :------: | :--: | :--------: |
+    | text  | string | - | 评论内容 | - |
+
 - 成功响应 无
 
 ### 封禁某个账号
