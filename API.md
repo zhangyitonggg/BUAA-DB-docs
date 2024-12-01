@@ -777,6 +777,7 @@
 | posts:post:created_by          |                               {:username, :user_url, :user_id}                                |      -       |           -           |
 | posts:post:created_by:username |                                            string                                             |      -       |           -           |
 | posts:post:created_by:user_id  |                                             uuid                                              |      -       |           -           |
+|                   posts:post:tags                   | [string] | &#10004; | tag 的**名称**集合 |
 
 ### 获取自己发布的任务
 
@@ -803,7 +804,7 @@
 | posts:post:created_by          |               {:username, :user_url, :user_id}               |           -           |           -           |
 | posts:post:created_by:username |                            string                            |           -           |           -           |
 | posts:post:created_by:user_id  |                             uuid                             |           -           |           -           |
-
+|                   posts:post:tags                   | [string] | &#10004; | tag 的**名称**集合 |
 
 ## 用户个人信息
 
