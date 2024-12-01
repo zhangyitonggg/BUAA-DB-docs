@@ -774,6 +774,9 @@
 | posts:post:created_at   |                           datetime                           |           -           |           -           |
 | posts:post:commission   |                             int                              |         佣金          |           -           |
 | posts:post:tiny_content |                            string                            | content的前五十个字符 |           -           |
+| posts:post:created_by          |                               {:username, :user_url, :user_id}                                |      -       |           -           |
+| posts:post:created_by:username |                                            string                                             |      -       |           -           |
+| posts:post:created_by:user_id  |                                             uuid                                              |      -       |           -           |
 
 ### 获取自己发布的任务
 
@@ -783,16 +786,23 @@
 - 请求体 无
 - 成功响应
 
-| 字段名                |                         类型                          | 解释 |         备注          |
-| :-------------------- | :---------------------------------------------------: | :--: | :-------------------: |
-| posts                 |                        [:post]                        |  -   |           -           |
-| posts:mission           | {:mission_id, :url, :title, :created_at, :commission, :tiny_content} |           -           |           -           |
-| posts:post:mission_id   |                             uuid                             |           -           |           -           |
-| posts:post:url          |                            string                            |           -           |           -           |
-| posts:post:title        |                            string                            |           -           | 长度不超过 max_length |
-| posts:post:created_at   |                           datetime                           |           -           |           -           |
-| posts:post:commission   |                             int                              |         佣金          |           -           |
-| posts:post:tiny_content |                            string                            | content的前五十个字符 |           -           |
+| 字段名                         |                             类型                             |         解释          |         备注          |
+| :----------------------------- | :----------------------------------------------------------: | :-------------------: | :-------------------: |
+| page                           |                             int                              |           -           |           -           |
+| per_page                       |                             int                              |           -           |           -           |
+| total                          |                             int                              |           -           |           -           |
+| total_page                     |                             int                              |           -           |           -           |
+| posts                          |                           [:post]                            |           -           |           -           |
+| posts:mission                  | {:mission_id, :url, :title, :created_at, :commission, :tiny_content} |           -           |           -           |
+| posts:post:mission_id          |                             uuid                             |           -           |           -           |
+| posts:post:url                 |                            string                            |           -           |           -           |
+| posts:post:title               |                            string                            |           -           | 长度不超过 max_length |
+| posts:post:created_at          |                           datetime                           |           -           |           -           |
+| posts:post:commission          |                             int                              |         佣金          |           -           |
+| posts:post:tiny_content        |                            string                            | content的前五十个字符 |           -           |
+| posts:post:created_by          |               {:username, :user_url, :user_id}               |           -           |           -           |
+| posts:post:created_by:username |                            string                            |           -           |           -           |
+| posts:post:created_by:user_id  |                             uuid                             |           -           |           -           |
 
 
 ## 用户个人信息
