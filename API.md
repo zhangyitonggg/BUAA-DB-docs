@@ -649,20 +649,20 @@
 - 请求体 无
 - 成功响应
 
-| 字段名         |   类型   |        解释        |        备注         |
-| :------------- | :------: | :----------------: | :-----------------: |
-| mission_id     |   uuid   |         -          |          -          |
-| url            |  string  |     帖子的地址     |          -          |
-| commission     |   int    |        佣金        |          -          |
-| open           |   bool   |      是否有效      |          -          |
-| tags           | [string] | tag 的**名称**集合 |          -          |
-| title          |  string  |         -          |          -          |
-| profile        |  string  |         -          |          -          |
-| content        |  string  |         -          |          -          |
-| submitted      |   bool   |     是否提交过     |          -          |
-| created_at     | datetime |         -          |          -          |
-| submit_at      | datetime |    上次提交时间    | 没有提交则返回 null |
-| submit_content |  string  |    上次提交内容    | 没有提交则返回 null |
+| 字段名                                         |   类型   |        解释        |        备注         |
+| :--------------------------------------------- | :------: | :----------------: | :-----------------: |
+| mission_id                                     |   uuid   |         -          |          -          |
+| url                                            |  string  |     帖子的地址     |          -          |
+| commission                                     |   int    |        佣金        |          -          |
+| ~~open==无效的任务就直接让其从数据库消失吧==~~ |   bool   |      是否有效      |          -          |
+| tags                                           | [string] | tag 的**名称**集合 |          -          |
+| title                                          |  string  |         -          |          -          |
+| ~~profile~~                                    |  string  |         -          |          -          |
+| content                                        |  string  |         -          |          -          |
+| ~~submitted~~                                  |   bool   |     是否提交过     |          -          |
+| created_at                                     | datetime |         -          |          -          |
+| ~~submit_at~~                                  | datetime |    上次提交时间    | 没有提交则返回 null |
+| ~~submit_content~~                             |  string  |    上次提交内容    | 没有提交则返回 null |
 
 ### 提交任务
 
@@ -679,14 +679,14 @@
 - 查询参数 无
 - 请求体 表单数据
 
-| 字段名  |  类型  | 可选 |     解释     |          备注          |
-| :-----: | :----: | :--: | :----------: | :--------------------: |
-| profile | string |  -   |   提交简介   |  未支付时只能看到简介  |
-| content | string |  -   | 完整提交内容 | 支付后看到完整提交内容 |
+|  字段名   |  类型  | 可选 |    解释     |         备注         |
+| :-------: | :----: | :--: | :---------: | :------------------: |
+|  profile  | string |  -   |  提交简介   | 未支付时只能看到简介 |
+| bhpan_url | string |  -   | bhpan的地址 |          -           |
 
 - 成功响应 无
 
-### 获取任务回复
+### 获取任务答案
 
 只有发布任务的人可以查看。
 
@@ -734,9 +734,9 @@
 - 查询参数 无
 - 请求体 表单数据
 
-|  字段名  |  类型  | 可选 |         解释          |   备注   |
-| :------: | :----: | :--: | :-------------------: | :------: |
-| accepted | [uuid] |  -   | 选中的任务提交记录 id | 至少一个 |
+|  字段名  |  类型  | 可选 |         解释          |     备注     |
+| :------: | :----: | :--: | :-------------------: | :----------: |
+| accepted | [uuid] |  -   | 选中的任务提交记录 id | 有且仅有一个 |
 
 - 成功响应 无
 
@@ -747,32 +747,53 @@
 - 路径参数 无
 - 查询参数
 
-|   字段名   |   类型   |   可选   |        解释        |                        备注                        |
-| :--------: | :------: | :------: | :----------------: | :------------------------------------------------: |
-|    page    |   int    | &#10004; |         -          |                     默认为 30                      |
-|  per_page  |   int    | &#10004; |         -          |                      默认为 1                      |
-|    tags    | [string] | &#10004; | tag 的**名称**集合 |                         -                          |
-|   status   |   bool   | &#10004; |      是否有效      |                    默认全部搜索                    |
-|  sort_by   |   int    | &#10004; |      排序方式      | （默认）推荐算法 0，最近创建 2，最近提交 3，佣金 4 |
-|  key_word  |  string  |    -     |         -          |                         -                          |
-| max_length |   int    | &#10004; | 任务标题的最大长度 |                      默认 30                       |
+|                  字段名                  |   类型   |   可选   |        解释        |                        备注                        |
+| :--------------------------------------: | :------: | :------: | :----------------: | :------------------------------------------------: |
+|                   page                   |   int    | &#10004; |         -          |                     默认为 30                      |
+|                 per_page                 |   int    | &#10004; |         -          |                      默认为 1                      |
+|                   tags                   | [string] | &#10004; | tag 的**名称**集合 |                         -                          |
+| ~~status==已经关闭的任务就让它消失吧==~~ |   bool   | &#10004; |      是否有效      |                    默认全部搜索                    |
+|                 sort_by                  |   int    | &#10004; |      排序方式      | （默认）推荐算法 0，最近创建 2，最近提交 3，佣金 4 |
+|                 key_word                 |  string  |    -     |         -          |                         -                          |
+|                max_length                |   int    | &#10004; | 任务标题的最大长度 |                      默认 30                       |
 
+- 请求体 无
+- 成功响应
+
+| 字段名                  |                             类型                             |         解释          |         备注          |
+| :---------------------- | :----------------------------------------------------------: | :-------------------: | :-------------------: |
+| page                    |                             int                              |           -           |           -           |
+| per_page                |                             int                              |           -           |           -           |
+| total                   |                             int                              |           -           |           -           |
+| total_page              |                             int                              |           -           |           -           |
+| posts                   |                           [:post]                            |           -           |           -           |
+| posts:mission           | {:mission_id, :url, :title, :created_at, :commission, :tiny_content} |           -           |           -           |
+| posts:post:mission_id   |                             uuid                             |           -           |           -           |
+| posts:post:url          |                            string                            |           -           |           -           |
+| posts:post:title        |                            string                            |           -           | 长度不超过 max_length |
+| posts:post:created_at   |                           datetime                           |           -           |           -           |
+| posts:post:commission   |                             int                              |         佣金          |           -           |
+| posts:post:tiny_content |                            string                            | content的前五十个字符 |           -           |
+
+### 获取自己发布的任务
+
+- 方法 GET
+- 路径参数 无
+- 查询参数
 - 请求体 无
 - 成功响应
 
 | 字段名                |                         类型                          | 解释 |         备注          |
 | :-------------------- | :---------------------------------------------------: | :--: | :-------------------: |
-| page                  |                          int                          |  -   |           -           |
-| per_page              |                          int                          |  -   |           -           |
-| total                 |                          int                          |  -   |           -           |
-| total_page            |                          int                          |  -   |           -           |
 | posts                 |                        [:post]                        |  -   |           -           |
-| posts:mission         | {:mission_id, :url, :title, :created_at, :commission} |  -   |           -           |
-| posts:post:mission_id |                         uuid                          |  -   |           -           |
-| posts:post:url        |                        string                         |  -   |           -           |
-| posts:post:title      |                        string                         |  -   | 长度不超过 max_length |
-| posts:post:created_at |                       datetime                        |  -   |           -           |
-| posts:post:commission |                          int                          | 佣金 |           -           |
+| posts:mission           | {:mission_id, :url, :title, :created_at, :commission, :tiny_content} |           -           |           -           |
+| posts:post:mission_id   |                             uuid                             |           -           |           -           |
+| posts:post:url          |                            string                            |           -           |           -           |
+| posts:post:title        |                            string                            |           -           | 长度不超过 max_length |
+| posts:post:created_at   |                           datetime                           |           -           |           -           |
+| posts:post:commission   |                             int                              |         佣金          |           -           |
+| posts:post:tiny_content |                            string                            | content的前五十个字符 |           -           |
+
 
 ## 用户个人信息
 
@@ -780,6 +801,10 @@
 
 /user/{user_id}
 
+- 路径 /search
+- 方法 GET
+- 路径参数 无
+- 查询参数
 - 路径参数
 | 字段名  | 类型 | 解释 | 备注 |
 | :-----: | :--: | :--: | :--: |
