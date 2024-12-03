@@ -520,26 +520,26 @@
 - 请求体 无
 - 成功响应
 
-| 字段名                         |                                             类型                                              |     解释     |         备注          |
-| :----------------------------- | :-------------------------------------------------------------------------------------------: | :----------: | :-------------------: |
-| page                           |                                              int                                              |      -       |           -           |
-| per_page                       |                                              int                                              |      -       |           -           |
-| total                          |                                              int                                              |      -       |           -           |
-| total_page                     |                                              int                                              |      -       |           -           |
-| posts                          |                                            [:post]                                            |      -       |           -           |
+| 字段名                         |                             类型                             |     解释     |         备注          |
+| :----------------------------- | :----------------------------------------------------------: | :----------: | :-------------------: |
+| page                           |                             int                              |      -       |           -           |
+| per_page                       |                             int                              |      -       |           -           |
+| total                          |                             int                              |      -       |           -           |
+| total_page                     |                             int                              |      -       |           -           |
+| posts                          |                           [:post]                            |      -       |           -           |
 | posts:post                     | {:post_id, :post_url, :title, :created_by, :created_at, :likes, :dislikes, :favorites, :cost} |      -       |           -           |
-| posts:post:post_id             |                                             uuid                                              |      -       |           -           |
-| posts:post:post_url            |                                            string                                             |      -       |           -           |
-| posts:post:title               |                                            string                                             |      -       | 长度不超过 max_length |
-| posts:post:created_by          |                               {:username, :user_url, :user_id}                                |      -       |           -           |
-| posts:post:created_by:username |                                            string                                             |      -       |           -           |
-| posts:post:created_by:user_id  |                                             uuid                                              |      -       |           -           |
-| posts:post:created_by:user_url |                                            string                                             | 用户主页地址 |           -           |
-| posts:post:created_at          |                                           datetime                                            |      -       |           -           |
-| posts:post:likes               |                                              int                                              |      -       |           -           |
-| posts:post:dislikes            |                                              int                                              |      -       |           -           |
-| posts:post:favorites           |                                              int                                              |      -       |           -           |
-| posts:post:cost                |                                              int                                              |   资源价格   |       免费为 0        |
+| posts:post:post_id             |                             uuid                             |      -       |           -           |
+| posts:post:post_url            |                           tustring                           |      -       |           -           |
+| posts:post:title               |                            string                            |      -       | 长度不超过 max_length |
+| posts:post:created_by          |               {:username, :user_url, :user_id}               |      -       |           -           |
+| posts:post:created_by:username |                            string                            |      -       |           -           |
+| posts:post:created_by:user_id  |                             uuid                             |      -       |           -           |
+| posts:post:created_by:user_url |                            string                            | 用户主页地址 |           -           |
+| posts:post:created_at          |                           datetime                           |      -       |           -           |
+| posts:post:likes               |                             int                              |      -       |           -           |
+| posts:post:dislikes            |                             int                              |      -       |           -           |
+| posts:post:favorites           |                             int                              |      -       |           -           |
+| posts:post:cost                |                             int                              |   资源价格   |       免费为 0        |
 
 ### 获取自己分享的帖子
 
@@ -649,21 +649,21 @@
 - 请求体 无
 - 成功响应
 
-| 字段名                                         |   类型   |        解释        |        备注         |
-| :--------------------------------------------- | :------: | :----------------: | :-----------------: |
-| mission_id                                     |   uuid   |         -          |          -          |
-| url                                            |  string  |     帖子的地址     |          -          |
-| commission                                     |   int    |        佣金        |          -          |
-| ~~open==无效的任务就直接让其从数据库消失吧==~~ |   bool   |      是否有效      |          -          |
-| tags                                           | [string] | tag 的**名称**集合 |          -          |
-| title                                          |  string  |         -          |          -          |
-| ~~profile~~                                    |  string  |         -          |          -          |
-| content                                        |  string  |         -          |          -          |
-| ~~submitted~~                                  |   bool   |     是否提交过     |          -          |
-| created_at                                     | datetime |         -          |          -          |
-| ~~submit_at~~                                  | datetime |    上次提交时间    | 没有提交则返回 null |
-| ~~submit_content~~                             |  string  |    上次提交内容    | 没有提交则返回 null |
-
+| 字段名             |   类型   |        解释        |        备注         |
+| :----------------- | :------: | :----------------: | :-----------------: |
+| mission_id         |   uuid   |         -          |          -          |
+| url                |  string  |     帖子的地址     |          -          |
+| commission         |   int    |        佣金        |          -          |
+| open               |   bool   |      是否有效      |          -          |
+| tags               | [string] | tag 的**名称**集合 |          -          |
+| title              |  string  |         -          |          -          |
+| ~~profile~~        |  string  |         -          |          -          |
+| content            |  string  |         -          |          -          |
+| ~~submitted~~      |   bool   |     是否提交过     |          -          |
+| created_at         | datetime |         -          |          -          |
+| ~~submit_at~~      | datetime |    上次提交时间    | 没有提交则返回 null |
+| ~~submit_content~~ |  string  |    上次提交内容    | 没有提交则返回 null |
+|  tags   | [string] | tag 的**名称**集合 |    -    |
 ### 提交任务
 
 创建任务的人不能提交。
@@ -715,10 +715,14 @@
 | total                    |          int           |       -        |                                 -                                 |
 | total_page               |          int           |       -        |                                 -                                 |
 | submits                  |       [:submit]        |       -        |                                 -                                 |
-| submits:submit           | {:submit_id, :profile} |       -        |                                 -                                 |
+| submits:submit           | {:submit_id, :profile, :bhpan_url, :created_by} |       -        |                                 -                                 |
 | submits:submit:submit_id |          uuid          |       -        |                                 -                                 |
 | submits:submit:profile   |         string         | 用户的提交简介 | 当用户关闭任务时，选择的提交记录的 profile 内容变成对应的 content |
-
+| submits:submit:bhpan_url |          string          |-|-|
+| submits:submit:created_at |          datatime          |       -        |                                 -                                 |
+| submits:submit:created_by |                               {:username, :user_url, :user_id}                                |      -       |           -           |
+| submits:submit:created_by:username |                                            string                                             |      -       |           -           |
+| submits:submit:created_by:user_id |                                             uuid                                              |      -       |           -           |
 ### 关闭任务
 
 创建任务才能关闭。
@@ -774,6 +778,9 @@
 | posts:post:created_at   |                           datetime                           |           -           |           -           |
 | posts:post:commission   |                             int                              |         佣金          |           -           |
 | posts:post:tiny_content |                            string                            | content的前五十个字符 |           -           |
+| posts:post:created_by          |                               {:username, :user_url, :user_id}                                |      -       |           -           |
+| posts:post:created_by:username |                                            string                                             |      -       |           -           |
+| posts:post:created_by:user_id  |                                             uuid                                              |      -       |           -           |
 
 ### 获取自己发布的任务
 
@@ -783,17 +790,24 @@
 - 请求体 无
 - 成功响应
 
-| 字段名                |                         类型                          | 解释 |         备注          |
-| :-------------------- | :---------------------------------------------------: | :--: | :-------------------: |
-| posts                 |                        [:post]                        |  -   |           -           |
-| posts:mission           | {:mission_id, :url, :title, :created_at, :commission, :tiny_content} |           -           |           -           |
-| posts:post:mission_id   |                             uuid                             |           -           |           -           |
-| posts:post:url          |                            string                            |           -           |           -           |
-| posts:post:title        |                            string                            |           -           | 长度不超过 max_length |
-| posts:post:created_at   |                           datetime                           |           -           |           -           |
-| posts:post:commission   |                             int                              |         佣金          |           -           |
-| posts:post:tiny_content |                            string                            | content的前五十个字符 |           -           |
-
+| 字段名                         |                             类型                             |         解释          |         备注          |
+| :----------------------------- | :----------------------------------------------------------: | :-------------------: | :-------------------: |
+| page                           |                             int                              |           -           |           -           |
+| per_page                       |                             int                              |           -           |           -           |
+| total                          |                             int                              |           -           |           -           |
+| total_page                     |                             int                              |           -           |           -           |
+| posts                          |                           [:post]                            |           -           |           -           |
+| posts:mission                  | {:mission_id, :url, :title, :created_at, :commission, :tiny_content} |           -           |           -           |
+| posts:post:mission_id          |                             uuid                             |           -           |           -           |
+| posts:post:url                 |                            string                            |           -           |           -           |
+| posts:post:title               |                            string                            |           -           | 长度不超过 max_length |
+| posts:post:created_at          |                           datetime                           |           -           |           -           |
+| posts:post:commission          |                             int                              |         佣金          |           -           |
+| posts:post:tiny_content        |                            string                            | content的前五十个字符 |           -           |
+| posts:post:created_by          |               {:username, :user_url, :user_id}               |           -           |           -           |
+| posts:post:created_by:username |                            string                            |           -           |           -           |
+| posts:post:created_by:user_id  |                             uuid                             |           -           |           -           |
+|                   posts:post:tags                   | [string] | &#10004; | tag 的**名称**集合 |
 
 ## 用户个人信息
 
